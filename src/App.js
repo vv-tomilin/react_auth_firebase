@@ -1,6 +1,14 @@
+import { Routes, Route } from 'react-router-dom';
+
+import { HomePage, LoginPage, RegisterPage } from './pages';
+
 function App() {
   return (
-    <div>Test</div>
+    <Routes>
+      <Route exact path="/" element={<HomePage />} />
+      <Route exact path="/login" element={<LoginPage />} />
+      <Route exact path="/register" element={<RegisterPage />} />
+    </Routes>
   );
 }
 
