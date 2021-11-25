@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { Form } from './';
 
 import { useDispatch } from 'react-redux';
@@ -8,12 +10,21 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const Login = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = (email, pass) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, pass)
-      .then((data) => {
-        console.log('Data:', data);
+      .then(({ user }) => {
+        console.log(user);
+
+        dispatch(setUser({
+          email: user.email,
+          token: user.accessToken,
+          id: user.uid
+        }));
+
+        navigate('/');
       })
       .catch((error) => {
         console.log('Error', error);
